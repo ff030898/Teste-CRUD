@@ -17,7 +17,6 @@ module.exports = {
     async show(req, res, next) {
         try {
             const { id } = req.params;
-            console.log(id)
             const result = await service.findOne(id);
             res.send(result);
         } catch (err) {
@@ -31,7 +30,7 @@ module.exports = {
         try {
             const {username} = req.body;
             const result = await service.create(username);
-            res.send(result);
+            res.send('Criado com sucesso: ' + result);
         } catch (err) {
            res.send(err)
         }
@@ -42,9 +41,9 @@ module.exports = {
     async update (req, res, next) {
         try {
             const { id } = req.params;
-            const {date, time} = req.body;
-            const result = await service.update(id, date, time);
-            res.send(result);
+            const { time } = req.body;
+            await service.update(id, time);
+            res.send('Atualizado com sucesso');
         } catch (err) {
            res.send(err)
         }
